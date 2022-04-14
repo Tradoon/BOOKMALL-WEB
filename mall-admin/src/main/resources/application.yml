@@ -42,10 +42,13 @@ secure:
       - /actuator/**
       - /druid/**
       - /admin/login
+      - /admin/user/login
       - /admin/register
       - /admin/info
       - /admin/logout
       - /minio/upload
+      - /admin/accountVerify
+      - /admin/user/register
 
 aliyun:
   oss:

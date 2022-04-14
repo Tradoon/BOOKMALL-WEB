@@ -94,6 +94,7 @@ public class UmsMemberServiceImpl implements UmsMemberService {
         umsMember.setPhone(telephone);
         umsMember.setPassword(passwordEncoder.encode(password));
         umsMember.setCreateTime(new Date());
+        //todo 数据库默认这个字段设置为1
         umsMember.setStatus(1);
         //获取默认会员等级并设置
         UmsMemberLevelExample levelExample = new UmsMemberLevelExample();

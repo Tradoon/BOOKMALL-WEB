@@ -63,5 +63,6 @@ public class UmsMemberCacheServiceImpl implements UmsMemberCacheService {
     public String getAuthCode(String telephone) {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_AUTH_CODE + ":" + telephone;
         return (String) redisService.get(key);
+        //todo 返回为Null的情况
     }
 }

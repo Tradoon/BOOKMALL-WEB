@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 /**
  * 后台用户管理Controller
- * Created by macro on 2018/4/26.
+ * Created by tradoon
  */
 @Controller
 @Api(tags = "UmsAdminController", description = "后台用户管理")
@@ -53,6 +53,26 @@ public class UmsAdminController {
         return CommonResult.success(umsAdmin);
     }
 
+    @ApiOperation(value = "用户注册")
+    @RequestMapping(value = "/user/register", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<UmsAdmin> userregister(@Validated @RequestParam("email")String email,@RequestParam("password")String password) {
+        UmsAdminParam umsAdminParam = new UmsAdminParam();
+        umsAdminParam.setEmail(email);
+        umsAdminParam.setUsername(email);
+        umsAdminParam.setPassword(password);
+        return register(umsAdminParam);
+    }
+
+    @ApiOperation(value = "用户注冊資格验证")
+    @RequestMapping(value = "/accountVerify", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult userAccountVerify(@Validated @RequestParam("account")String account) {
+        return CommonResult.success(null);
+    }
+
+
+
     @ApiOperation(value = "登录以后返回token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
@@ -66,6 +86,19 @@ public class UmsAdminController {
         tokenMap.put("tokenHead", tokenHead);
         return CommonResult.success(tokenMap);
     }
+
+    @ApiOperation(value = "用户登录以后返回token")
+    @RequestMapping(value = "/user/login", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult userLogin(@Validated @RequestParam("account")String account,@Validated @RequestParam("password")String password) {
+        UmsAdminLoginParam umsAdminLoginParam = new UmsAdminLoginParam();
+        umsAdminLoginParam.setPassword(password);
+        umsAdminLoginParam.setUsername(account);
+        return login(umsAdminLoginParam);
+        //todo 只对没有修改过用户名字的请求有效，默认注册的时候用户名等于邮箱名字
+
+    }
+
 
     @ApiOperation(value = "刷新token")
     @RequestMapping(value = "/refreshToken", method = RequestMethod.GET)

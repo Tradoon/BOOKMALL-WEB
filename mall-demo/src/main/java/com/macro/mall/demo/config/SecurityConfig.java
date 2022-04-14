@@ -11,10 +11,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.List;
 
@@ -33,7 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()//配置权限
 //                .antMatchers("/").access("hasRole('TEST')")//该路径需要TEST角色
 //                .antMatchers("/brand/list").hasAuthority("TEST")//该路径需要TEST权限
-                .antMatchers("/**").permitAll()
+                .antMatchers("/**","/user/accountVerify")
+                .permitAll()
                 .and()//启用基于http的认证
                 .httpBasic()
                 .realmName("/")
@@ -54,6 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers()//去除X-Frame-Options
                 .frameOptions()
                 .disable();
+
+
     }
 
     @Override

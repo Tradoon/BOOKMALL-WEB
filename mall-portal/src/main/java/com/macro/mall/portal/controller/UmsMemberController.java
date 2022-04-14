@@ -52,6 +52,7 @@ public class UmsMemberController {
         String token = memberService.login(username, password);
         if (token == null) {
             return CommonResult.validateFailed("用户名或密码错误");
+
         }
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
